@@ -22,8 +22,6 @@ void loginScreen(){
     //g_signal_connect(usernameEntry, "usernameEntry", NULL, NULL);
     gtk_widget_show(windowLogin);
     gtk_main();
-
-
     //return EXIT_SUCCESS;
 }
 //TODO ZADAJ HESLO ZNOVU
@@ -39,23 +37,21 @@ G_MODULE_EXPORT void on_buttonRegister_clicked() {
     } else {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Úspešne vytvorený účet!");
     }
-
-
 }
 
 G_MODULE_EXPORT void on_buttonLogin_clicked() {
     const gchar *username, *password;
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
-    const gchar *temp1 = "tibor";
-    const gchar *temp2 = "michalov";
+    const gchar *temp1 = "a";
+    const gchar *temp2 = "a";
     if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Správne zadané údaje!");
         printf("logged in via tibor");
         gtk_widget_hide(windowLogin);
 
-
-        chatScreen();
+        gtk_main_quit();
+        //chatScreen();
     }/* else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
         printf("logged in via random new user");
         gtk_widget_hide(windowLogin);
