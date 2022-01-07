@@ -16,18 +16,44 @@ void chatScreen() {
     gtk_widget_show_all(windowChat);
     gtk_main();
 
+
+
+
 }
 
 G_MODULE_EXPORT void on_buttonSendMessage_clicked() {
-    chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkSendText));
+    GtkTextIter iter;
     GtkTextIter startp, endp;
+    GtkTextMark *mark;
+    const gchar *textInsert;
+
+//TODO fix names
+    //chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
+    //textInsert = gtk_text_view_get_buffer(gtkSendText);
+    printf("xd!");
+    //gtk_text_buffer_get_start_iter(chatTextBuffer, &startp);
+    //endp = startp;
+    //gtk_text_iter_forward_chars(&endp, 50);
+
+    //gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(chatTextBuffer), &startp, &endp);
+    //const GtkTextIter startIter = startp, endIter = endp;
+    //gtk_text_buffer_get_text(GTK_TEXT_BUFFER(chatTextBuffer), &startp, &endp, FALSE);
+    //mark = gtk_text_buffer_get_insert (chatTextBuffer);
+    //gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
+
+    //gtk_text_buffer_delete(chatTextBuffer, &startp, &endp);
 
 
+}
+
+G_MODULE_EXPORT void on_buttonReceiveMessage_clicked() { // TODO DELETE, JUST FOR TESTING!!!!!
+    GtkTextIter startp, endp;
+    chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkSendText));
+
+    //gtk_text_buffer_get_start_iter(chatTextBuffer, &startp);
+    //endp = startp;
     gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(chatTextBuffer), &startp, &endp);
 
-    const GtkTextIter startIter = startp, endIter = endp;
-
-    //printf(chatTextBuffer);
-
-
+    gtk_text_buffer_get_text(GTK_TEXT_BUFFER(chatTextBuffer), &startp, &endp, FALSE);
+    gtk_text_buffer_delete(chatTextBuffer, &startp, &endp);
 }

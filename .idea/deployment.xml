@@ -9,6 +9,17 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="gtk+frios (a6dd6bf6-ed5b-49f2-bb58-c8b9b8879bdb)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.Em8OdnvZTx" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>

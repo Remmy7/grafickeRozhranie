@@ -1,6 +1,5 @@
 #include <string.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
@@ -18,3 +17,4 @@ GtkWidget *buttonLogin;
 GtkWidget *buttonRegister;
 
 GtkTextBuffer *chatTextBuffer;
+

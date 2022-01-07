@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.21)
-project(grafickeRozhranie C)
+cmake_minimum_required(VERSION 3.13)
+project(posSemka C)
 
 set(CMAKE_C_STANDARD 99)
 find_package(PkgConfig REQUIRED)
@@ -16,6 +16,6 @@ add_definitions(${GTK3_CFLAGS_OTHER})
 
 
 
-add_executable(grafickeRozhranie main.c)
+add_executable(posSemka main.c)
 
-target_link_libraries(grafickeRozhranie ${GTK3_LIBRARIES})
+target_link_libraries(posSemka ${GTK3_LIBRARIES})
