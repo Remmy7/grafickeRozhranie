@@ -17,4 +17,5 @@ GtkWidget *buttonLogin;
 GtkWidget *buttonRegister;
 
 GtkTextBuffer *chatTextBuffer;
+GtkTextBuffer *textInsert;
 

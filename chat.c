@@ -12,6 +12,7 @@ void chatScreen() {
 
     gtk_window_set_default_size(GTK_WINDOW(windowChat),600,450);
     gtk_text_view_set_editable(GTK_TEXT_VIEW(gtkViewText), FALSE);
+    gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(gtkViewText), FALSE);
     // TODO pridať emoji
     g_signal_connect(windowChat, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
@@ -24,17 +25,17 @@ void chatScreen() {
 }
 
 G_MODULE_EXPORT void on_buttonSendMessage_clicked() {
-    const gchar *textInsert;
 
 //TODO fix names
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
-    textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
+    //textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
+    textInsert = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkSendText));
     printf("sent!\n");
     mark = gtk_text_buffer_get_insert (chatTextBuffer);
     gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
     if (gtk_text_buffer_get_char_count(chatTextBuffer))
         gtk_text_buffer_insert (chatTextBuffer, &iter, "\n", 1);
-    gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
+    gtk_text_buffer_insert (chatTextBuffer, &iter, (const gchar*)textInsert, -1);
 
     //gtk_text_buffer_delete(chatTextBuffer, &startp, &endp);
     gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
@@ -49,12 +50,13 @@ G_MODULE_EXPORT void on_buttonReceiveMessage_clicked() { // TODO DELETE, JUST FO
     printf("received!\n");
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
     textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
+    //textInsert = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkSendText));
 
     mark = gtk_text_buffer_get_insert (chatTextBuffer);
     //gtk_text_buffer_get_mark(chatTextBuffer, (const gchar*)mark2);
-    gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
+    //gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
     if (gtk_text_buffer_get_char_count(chatTextBuffer))
-        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n",     1);
+        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n", 1);
     gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
     //gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0, 0, 1, 1);
     gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);

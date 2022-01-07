@@ -20,6 +20,16 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="gtk+friosv2 (72914723-dec5-4adb-8526-b497fa3d21f3)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.EB7JmIKR9v" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>

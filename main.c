@@ -2,6 +2,8 @@
 #include "commonPointers.c"
 
 
+
+
 int main(int argc, char *argv[]) {
     gtk_init(&argc, &argv);
     loginScreen();

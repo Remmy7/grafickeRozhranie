@@ -1,3 +1,5 @@
-/tmp/tmp.Em8OdnvZTx/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/tmp/tmp.Em8OdnvZTx/cmake-build-debug/CMakeFiles/edit_cache.dir
-/tmp/tmp.Em8OdnvZTx/cmake-build-debug/CMakeFiles/posSemka.dir
+/tmp/tmp.EB7JmIKR9v/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/tmp/tmp.EB7JmIKR9v/cmake-build-debug/CMakeFiles/edit_cache.dir
+/tmp/tmp.EB7JmIKR9v/cmake-build-debug/CMakeFiles/client.dir
+/tmp/tmp.EB7JmIKR9v/cmake-build-debug/CMakeFiles/server.dir
+/tmp/tmp.EB7JmIKR9v/cmake-build-debug/CMakeFiles/main.dir
