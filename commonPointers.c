@@ -8,6 +8,7 @@ GtkWidget *windowChat;
 GtkWidget *gtkViewText;
 GtkWidget *gtkSendText;
 GtkWidget *buttonSendMessage;
+GtkWidget *buttonReceiveMessage; //TODO DELETE LATER
 
 GtkWidget *windowLogin;
 GtkWidget *errorMessage;

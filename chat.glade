@@ -295,9 +295,6 @@
           <placeholder/>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
           <object class="GtkButton" id="buttonSendMessage">
             <property name="label" translatable="yes">Poslať</property>
             <property name="visible">True</property>
@@ -413,10 +410,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="gtkSendText">
-            <property name="name">gtkSendText</property>
+          <object class="GtkTextView" id="gtkSendText">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
+            <property name="is-focus">True</property>
           </object>
           <packing>
             <property name="left-attach">2</property>
