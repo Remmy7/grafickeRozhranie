@@ -7,6 +7,7 @@ void loginScreen(){
     gtk_builder_connect_signals(builder, NULL);
 
     //gtk_builder_add_from_file(builder, "login.glade", NULL);
+    printf("hello\n");
 
     windowLogin = GTK_WIDGET(gtk_builder_get_object(builder, "windowLogin"));
 
@@ -18,7 +19,7 @@ void loginScreen(){
     buttonRegister = GTK_WIDGET(gtk_builder_get_object(builder, "buttonRegister"));
 
     g_signal_connect(windowLogin, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
+    //g_signal_connect(usernameEntry, "usernameEntry", NULL, NULL);
     gtk_widget_show(windowLogin);
     gtk_main();
 
@@ -50,8 +51,10 @@ G_MODULE_EXPORT void on_buttonLogin_clicked() {
     const gchar *temp2 = "michalov";
     if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Správne zadané údaje!");
-        //printf("logged in via tibor");
+        printf("logged in via tibor");
         gtk_widget_hide(windowLogin);
+
+
         chatScreen();
     }/* else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
         printf("logged in via random new user");
