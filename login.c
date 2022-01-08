@@ -58,6 +58,9 @@ void loginScreen(){
     g_signal_connect(windowLogin, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(buttonLogin, "clicked", G_CALLBACK(on_buttonLogin_clicked), windowLogin);
     g_signal_connect(buttonRegister, "clicked", G_CALLBACK(on_buttonRegister_clicked), windowLogin);
+    g_signal_connect(usernameEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
+    g_signal_connect(passwordEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
+
     gtk_widget_show(windowLogin);
     gtk_main();
     //return EXIT_SUCCESS;
