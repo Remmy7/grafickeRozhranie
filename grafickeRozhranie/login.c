@@ -1,5 +1,6 @@
 #include "commonPointers.c"
 #include "chat.c"
+#include <string.h>
 
 void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     const gchar *username, *password;
@@ -7,7 +8,7 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
     const gchar *temp1 = "tibor";
     const gchar *temp2 = "michalov";
-    printf("\n\n\nusernameA=%s\npassword=%s\n", username, password);
+    //\printf("\n\n\nusernameA=%s\npassword=%s\n", username, password);
     if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Užívateľ už existuje!");
     } else {
@@ -19,15 +20,17 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
     const gchar *username, *password;
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
-    const gchar *temp1 = "a";
-    const gchar *temp2 = "a";
+    const gchar *temp1 = "matej";
+    const gchar *temp2 = "hubocan";
     if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Správne zadané údaje!");
-        printf("logged in via tibor");
-        gtk_widget_hide(windowLogin);
-
+        printf("matej");
+        printf("hubocan");
+        puts("y");
+        puts("matej");
+        puts("hubocan");
         gtk_main_quit();
-        //chatScreen();
+        chatScreen();
     }/* else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
         printf("logged in via random new user");
         gtk_widget_hide(windowLogin);
@@ -36,7 +39,7 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
     } */else {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Nesprávne zadané údaje!");
     }
-    printf("username=%s\npassword=%s\n",username,password);
+    //printf("username=%s\npassword=%s\n",username,password);
 }
 void loginScreen(){
     builder = gtk_builder_new_from_file("grafickeRozhranie/login.glade");

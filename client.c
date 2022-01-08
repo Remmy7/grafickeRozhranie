@@ -9,14 +9,28 @@
 #include <pthread.h>
 #include <string.h>
 #include <stdbool.h>
+#include "grafickeRozhranie/login.c"
+typedef struct msg {
+    char *text;
+    int socketfd;
+}MSG;
 
-void *mWrite(int sockfd){
+void *mWrite(void *d){
+    MSG *msg = d;
     int n;
     char buffer[256];
 
     while(1){
+
         bzero(buffer,256);
-        fgets(buffer, 255, stdin);
+        //fgets(buffer, 255, stdin);
+        if(!strcmp(msg->text, "")) {
+            continue;
+        } else {
+            strcpy(buffer, msg->text);
+            printf("text: %s", msg->text);
+            msg->text = "";
+        }
         printf("\n");
         printf("vypis obsahu buffera z write thready: %s",buffer);
         printf("pocet znakov(aj s koncovym bielim znakom): %d\n",(int)strlen(buffer));
@@ -84,13 +98,13 @@ void *mWrite(int sockfd){
             printf("original: %s", buffer);
             printf("    copy: %s\n", crypted);
 
-            n = write(sockfd, crypted, strlen(crypted)+1);
+            n = write(msg->socketfd, crypted, strlen(crypted)+1);
             if (n < 0) {
                 perror("Error writing to socket");
                 return 5;
             }
         }else{
-            n = write(sockfd, buffer, strlen(buffer)+1);
+            n = write(msg->socketfd, buffer, strlen(buffer)+1);
             if (n < 0) {
                 perror("Error writing to socket");
                 return 5;
@@ -226,12 +240,24 @@ void *mRead(int sockfd){
     }
 }
 
-int main(int argc, char *argv[])
-{
+void *generateRozhranie(void *d) {
+    loginScreen();
+}
+
+
+int main(int argc, char *argv[]){
+
+    gtk_init(&argc, &argv);
+
+    MSG msg;
+    msg.text = "chat";
+
+
     int sockfd, n;
     struct sockaddr_in serv_addr;
     struct hostent* server;
-
+    pthread_t rozhranie;
+    pthread_create(&rozhranie, NULL, generateRozhranie, NULL);
     char buffer[256];
 
     if (argc < 3)
@@ -260,11 +286,12 @@ int main(int argc, char *argv[])
     serv_addr.sin_port = htons(portt);
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
     if (sockfd < 0) {
         perror("Error creating socket");
         return 3;
     }
-
+    msg.socketfd = sockfd;
     if(connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         portt++;
         serv_addr.sin_port = htons(portt);
@@ -274,6 +301,7 @@ int main(int argc, char *argv[])
         }
     }
 
+
     // register/login
     char registered[2];
     char name[11];
@@ -281,7 +309,7 @@ int main(int argc, char *argv[])
     bool log = false;
 
 
-    while(1){
+    while(0){
         printf("Are you a registered user?? (y/n)\n");
         scanf("%s", registered);
 
@@ -360,7 +388,7 @@ int main(int argc, char *argv[])
             pthread_t tWrite;
 
             pthread_create(&tRead, NULL, &mRead, sockfd);
-            pthread_create(&tWrite, NULL, &mWrite, sockfd);
+            pthread_create(&tWrite, NULL, &mWrite, &msg);
 
             pthread_join(tRead, NULL);
             pthread_join(tWrite, NULL);
@@ -394,5 +422,6 @@ int main(int argc, char *argv[])
         }
     }
     close(sockfd);
+    pthread_join(rozhranie, NULL);
     return 0;
 }

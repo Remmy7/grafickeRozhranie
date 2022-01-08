@@ -48,13 +48,8 @@ void on_buttonReceiveMessage_clicked(GtkButton *button, gpointer user_data) { //
     gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");
 }
 void chatScreen() {
-
-
-
     builder = gtk_builder_new_from_file("grafickeRozhranie/chat.glade");
     gtk_builder_connect_signals(builder, NULL);
-
-
 
     windowChat = GTK_WIDGET(gtk_builder_get_object(builder, "windowChat"));
     gtkViewText = GTK_WIDGET(gtk_builder_get_object(builder, "gtkViewText"));

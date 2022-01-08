@@ -5,9 +5,9 @@
 
 
 int main(int argc, char *argv[]) {
-    //gtk_init(&argc, &argv);
-    //loginScreen();
+    gtk_init(&argc, &argv);
+    loginScreen();
     printf("back");
-    //chatScreen();
+    chatScreen();
     return 0;
 }
