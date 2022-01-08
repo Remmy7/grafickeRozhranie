@@ -308,120 +308,127 @@ int main(int argc, char *argv[]){
     char password[11];
     bool log = false;
 
+    pthread_t tRead;
+    pthread_t tWrite;
 
-    while(0){
-        printf("Are you a registered user?? (y/n)\n");
-        scanf("%s", registered);
+    pthread_create(&tRead, NULL, &mRead, sockfd);
+    pthread_create(&tWrite, NULL, &mWrite, &msg);
 
-        if(strcmp(registered, "y") == 0 || strcmp(registered, "Y") == 0){
-            //login
-            printf("is registered\n");
-            printf("To login please put your nickname and password.\n");
-
-            printf("Name: ");
-            scanf("%s", name);
-
-            printf("Password: ");
-            scanf("%s", password);
-
-            //
-            strcat(buffer, "log ");
-            strcat(buffer, name);
-            strcat(buffer, " ");
-            strcat(buffer, password);
-            log = true;
-
-            printf("obsah buffera odoslaneho na server: %s\n", buffer);
-            printf("dlzka buffera(bez +1): %d\n", (int)strlen(buffer));
-
-            n = write(sockfd, buffer, strlen(buffer));
-            if (n < 0) {
-                perror("Error writing to socket");
-                return 6;
-            }
-            break;
-        }
-        if(strcmp(registered, "n") == 0 || strcmp(registered, "N") == 0){
-            //register
-            printf("is not registered\n");
-            printf("To register please put your desired nickname and password.\n");
-
-            printf("Name: ");
-            scanf("%s", name);
-
-            printf("Password: ");
-            scanf("%s", password);
-
-            //poslem serveru ziadost o registraciu s udajmi name password
-            strcat(buffer, "reg ");
-            strcat(buffer, name);
-            strcat(buffer, " ");
-            strcat(buffer, password);
-            printf("NA SERVER POSIELAM TENTO STRING: %s\n", buffer);
-
-            n = write(sockfd, buffer, strlen(buffer));
-            if (n < 0) {
-                perror("Error writing to socket");
-                return 6;
-            }
-            break;
-        }
-        printf("bad input. try again\n");
-    }
-
-    printf("\npost log/reg\n");
+    pthread_join(tRead, NULL);
+    pthread_join(tWrite, NULL);
+//    while(0){
+//        printf("Are you a registered user?? (y/n)\n");
+//        scanf("%s", registered);
+//
+//        if(strcmp(registered, "y") == 0 || strcmp(registered, "Y") == 0){
+//            //login
+//            printf("is registered\n");
+//            printf("To login please put your nickname and password.\n");
+//
+//            printf("Name: ");
+//            scanf("%s", name);
+//
+//            printf("Password: ");
+//            scanf("%s", password);
+//
+//            //
+//            strcat(buffer, "log ");
+//            strcat(buffer, name);
+//            strcat(buffer, " ");
+//            strcat(buffer, password);
+//            log = true;
+//
+//            printf("obsah buffera odoslaneho na server: %s\n", buffer);
+//            printf("dlzka buffera(bez +1): %d\n", (int)strlen(buffer));
+//
+//            n = write(sockfd, buffer, strlen(buffer));
+//            if (n < 0) {
+//                perror("Error writing to socket");
+//                return 6;
+//            }
+//            break;
+//        }
+//        if(strcmp(registered, "n") == 0 || strcmp(registered, "N") == 0){
+//            //register
+//            printf("is not registered\n");
+//            printf("To register please put your desired nickname and password.\n");
+//
+//            printf("Name: ");
+//            scanf("%s", name);
+//
+//            printf("Password: ");
+//            scanf("%s", password);
+//
+//            //poslem serveru ziadost o registraciu s udajmi name password
+//            strcat(buffer, "reg ");
+//            strcat(buffer, name);
+//            strcat(buffer, " ");
+//            strcat(buffer, password);
+//            printf("NA SERVER POSIELAM TENTO STRING: %s\n", buffer);
+//
+//            n = write(sockfd, buffer, strlen(buffer));
+//            if (n < 0) {
+//                perror("Error writing to socket");
+//                return 6;
+//            }
+//            break;
+//        }
+//        printf("bad input. try again\n");
+//    }
+//
+//    printf("\npost log/reg\n");
 
     //ak si sa prihlasoval
-    if(log){
-        n = read(sockfd, buffer, 255);
-        if (n < 0) {
-            perror("Error reading from socket");
-            return 6;
-        }
-        printf("obsah buffera odoslaneho z serveru: %s\n", buffer);
-        printf("dlzka buffera: %d\n", (int)strlen(buffer));
+//    if(log){
+//        n = read(sockfd, buffer, 255);
+//        if (n < 0) {
+//            perror("Error reading from socket");
+//            return 6;
+//        }
+//        printf("obsah buffera odoslaneho z serveru: %s\n", buffer);
+//        printf("dlzka buffera: %d\n", (int)strlen(buffer));
+//
+//        if(!strcmp(buffer, "ok")){ // spravne udaje
+//            scanf("%c", (char *) stdin);
+//            sleep(1);
+//            pthread_t tRead;
+//            pthread_t tWrite;
+//
+//            pthread_create(&tRead, NULL, &mRead, sockfd);
+//            pthread_create(&tWrite, NULL, &mWrite, &msg);
+//
+//            pthread_join(tRead, NULL);
+//            pthread_join(tWrite, NULL);
+//        }else{ // nespravne udaje
+//            printf("Better learn how to type mate!");
+//        }
 
-        if(!strcmp(buffer, "ok")){ // spravne udaje
-            scanf("%c", (char *) stdin);
-            sleep(1);
-            pthread_t tRead;
-            pthread_t tWrite;
 
-            pthread_create(&tRead, NULL, &mRead, sockfd);
-            pthread_create(&tWrite, NULL, &mWrite, &msg);
-
-            pthread_join(tRead, NULL);
-            pthread_join(tWrite, NULL);
-        }else{ // nespravne udaje
-            printf("Better learn how to type mate!");
-        }
-
-
-    }else{ //registroval si sa
-        n = read(sockfd, buffer, 255);
-        if (n < 0) {
-            perror("Error reading from socket");
-            return 6;
-        }
-        printf("obsah buffera odoslaneho z serveru: %s\n", buffer);
-        int result = strcmp(buffer, "Boli ste uspesne registrovany.");
-        printf("result: %d\n",result);
-
-        if(!strcmp(buffer, "Boli ste uspesne registrovany.")){ // spravne udaje
-
-            pthread_t tRead;
-            pthread_t tWrite;
-
-            pthread_create(&tRead, NULL, &mRead, sockfd);
-            pthread_create(&tWrite, NULL, &mWrite, sockfd);
-
-            pthread_join(tRead, NULL);
-            pthread_join(tWrite, NULL);
-        }else{ // nespravne udaje
-            printf("boha jeho treba novy nick!");
-        }
-    }
-    close(sockfd);
+//    }else{ //registroval si sa
+//        n = read(sockfd, buffer, 255);
+//        if (n < 0) {
+//            perror("Error reading from socket");
+//            return 6;
+//        }
+//        printf("obsah buffera odoslaneho z serveru: %s\n", buffer);
+//        int result = strcmp(buffer, "Boli ste uspesne registrovany.");
+//        printf("result: %d\n",result);
+//
+//        if(!strcmp(buffer, "Boli ste uspesne registrovany.")){ // spravne udaje
+//
+//            pthread_t tRead;
+//            pthread_t tWrite;
+//
+//            pthread_create(&tRead, NULL, &mRead, sockfd);
+//            pthread_create(&tWrite, NULL, &mWrite, sockfd);
+//
+//            pthread_join(tRead, NULL);
+//            pthread_join(tWrite, NULL);
+//        }else{ // nespravne udaje
+//            printf("boha jeho treba novy nick!");
+//        }
+//    }
     pthread_join(rozhranie, NULL);
+    close(sockfd);
     return 0;
 }

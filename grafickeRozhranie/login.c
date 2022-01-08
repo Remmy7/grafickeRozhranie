@@ -24,11 +24,12 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
     const gchar *temp2 = "hubocan";
     if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Správne zadané údaje!");
+        gtk_widget_hide(windowLogin);
         printf("matej");
         printf("hubocan");
-        puts("y");
-        puts("matej");
-        puts("hubocan");
+//        puts("y");
+//        puts("matej");
+//        puts("hubocan");
         gtk_main_quit();
         chatScreen();
     }/* else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
