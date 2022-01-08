@@ -2,7 +2,9 @@
 #include "commonPointers.c"
 #include <string.h>
 GtkTextIter iter;
-GtkTextMark *mark;
+GtkTextMark *mark, *mark2;
+const gchar* tempName = "jano";
+const gchar* tempName2 = "tibor";
 
 
 void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
@@ -13,12 +15,9 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
     printf("sent!\n");
     mark = gtk_text_buffer_get_insert (chatTextBuffer);
     gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
-    //if (gtk_text_buffer_get_char_count(chatTextBuffer) > 2)
-    //    gtk_text_buffer_insert (chatTextBuffer, &iter, "\n", 1);
-    //gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
     if (strlen(textInsert) > 0) {
         printf("Nice.");
-        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n", 1);
+        gtk_text_buffer_insert (chatTextBuffer, &iter, ("\n :"), 1);
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
     } else {
         printf("Not nice.");
@@ -33,29 +32,29 @@ void on_buttonReceiveMessage_clicked(GtkButton *button, gpointer user_data) { //
     const gchar *textInsert;
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
     textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
-
-
     printf("received!\n");
     mark = gtk_text_buffer_get_insert (chatTextBuffer);
     gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
-    gtk_text_buffer_create_mark(chatTextBuffer, "rightToLeft", &iter, FALSE);
     if (strlen(textInsert) > 0) {
         printf("Nice.");
-        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n", 1);
+        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+        //gtk_text_buffer_insert (chatTextBuffer, &iter, tempName, 1);
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
     } else {
         printf("Not nice.");
     }
-
-
 
     gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
     gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");
 }
 void chatScreen() {
 
+
+
     builder = gtk_builder_new_from_file("chat.glade");
     gtk_builder_connect_signals(builder, NULL);
+
+
 
     windowChat = GTK_WIDGET(gtk_builder_get_object(builder, "windowChat"));
     gtkViewText = GTK_WIDGET(gtk_builder_get_object(builder, "gtkViewText"));
