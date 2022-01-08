@@ -1,4 +1,4 @@
-TARGET = POS_semestralnaPraca
+TARGET = Program
 
 CC = gcc
 
@@ -18,15 +18,13 @@ GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
 LD=gcc
 LDFLAGS=$(PTHREAD) $(GTKLIB) -export-dynamic
 
-OBJS= client.o server.o
+OBJS= client.o
 
 all: $(OBJS)
-        $(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
+	$(LD) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
 client.o: client.c
-        $(CC) -c $(CCFLAGS) client.c $(GTKLIB) -o client.o
+	$(CC) -c $(CCFLAGS) client.c $(GTKLIB) -o client.o
 
-server.o: server.c
-        $(CC) -c $(CCFLAGS) server.c $(GTKLIB) -o server.o
 clean:
-        rm -f *.o $(TARGET)
+	rm -f *.o $(TARGET)
