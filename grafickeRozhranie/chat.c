@@ -51,7 +51,7 @@ void chatScreen() {
 
 
 
-    builder = gtk_builder_new_from_file("chat.glade");
+    builder = gtk_builder_new_from_file("grafickeRozhranie/chat.glade");
     gtk_builder_connect_signals(builder, NULL);
 
 

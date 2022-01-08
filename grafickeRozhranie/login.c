@@ -39,7 +39,7 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
     printf("username=%s\npassword=%s\n",username,password);
 }
 void loginScreen(){
-    builder = gtk_builder_new_from_file("login.glade");
+    builder = gtk_builder_new_from_file("grafickeRozhranie/login.glade");
     gtk_builder_connect_signals(builder, NULL);
 
     //gtk_builder_add_from_file(builder, "login.glade", NULL);
