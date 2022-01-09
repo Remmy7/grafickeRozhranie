@@ -95,7 +95,7 @@ void *mWrite(void *d){
             }
 
 
-            char* crypted[300];
+            char crypted[300];
             bzero(crypted,300);
             strcat(crypted, command);
             strcat(crypted, " ");
@@ -108,13 +108,13 @@ void *mWrite(void *d){
             n = write(msg->socketfd, crypted, strlen(crypted)+1);
             if (n < 0) {
                 perror("Error writing to socket");
-                return 5;
+                exit(5);
             }
         }else{
             n = write(msg->socketfd, buffer, strlen(buffer)+1);
             if (n < 0) {
                 perror("Error writing to socket");
-                return 5;
+                exit(5);
             }
             if(!strcmp(buffer, "quit\n")){
                 break;
@@ -125,8 +125,8 @@ void *mWrite(void *d){
     }
 }
 
-void *mRead(int sockfd){
-
+void *mRead(void* d){
+    int *sockfd = (int*)d;
     //const gchar *textInsert;
     //textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
 
@@ -136,7 +136,7 @@ void *mRead(int sockfd){
 
     while(1){
         bzero(buffer,256);
-        n = read(sockfd, buffer, 255);
+        n = (int)read(*sockfd, buffer, 255);
         strcpy(msg2.text, buffer);
 
         chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
@@ -158,7 +158,7 @@ void *mRead(int sockfd){
 
         if (n < 0) {
             perror("Error reading from socket");
-            return 6;
+            exit(6);
         }
 
         if(!strcmp(buffer, "terminujem ta")){
@@ -316,7 +316,6 @@ void* start(void * d){
     char buffer[256];
 
 
-
     server = gethostbyname("localhost");
 
     bzero((char*)&serv_addr, sizeof(serv_addr));
@@ -334,7 +333,7 @@ void* start(void * d){
 
     if (sockfd < 0) {
         perror("Error creating socket");
-        return 3;
+        exit (3);
     }
     msg1.socketfd = sockfd;
     if(connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
@@ -342,14 +341,14 @@ void* start(void * d){
         serv_addr.sin_port = htons(portt);
         if(connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
             perror("Error connecting to socket");
-            return 4;
+            exit(4);
         }
     }
 
     pthread_t tRead;
     pthread_t tWrite;
 
-    pthread_create(&tRead, NULL, &mRead, sockfd);
+    pthread_create(&tRead, NULL, &mRead, &sockfd);
     pthread_create(&tWrite, NULL, &mWrite, &msg1);
 
     pthread_join(tRead, NULL);
