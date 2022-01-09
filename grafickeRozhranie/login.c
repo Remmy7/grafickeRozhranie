@@ -41,10 +41,10 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
         strcat(temp, " ");
         strcat(temp, password);
 
-        strcpy(msg1.text , "log matej hubocan");
 
-        gtk_main_quit();
-        chatScreen();
+    gtk_main_quit();
+    chatScreen();
+    strcpy(msg1.text , temp);
 
    // } else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
         //printf("logged in via random new user");
