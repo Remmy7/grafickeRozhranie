@@ -274,7 +274,7 @@ void *mRead(int sockfd){
 
 
 void* start(void * d){
-
+    printf("Zapol som sa");
     int sockfd, n;
     struct sockaddr_in serv_addr;
     struct hostent* server;
