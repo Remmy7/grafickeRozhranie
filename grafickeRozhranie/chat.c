@@ -359,8 +359,9 @@ void* start(void * d){
 void on_buttonQuit_clicked() {
     strcpy(msg1.text, "quit\n");
     pthread_cond_signal(&pokracuj);
-    gtk_main_quit();
     gtk_widget_hide(windowChat);
+    gtk_main_quit();
+
 
 }
 
