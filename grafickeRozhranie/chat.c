@@ -31,7 +31,6 @@ void *mWrite(void *d){
 
 
         if(strlen(msg1.text) == 0) {
-            //printf("SOM TU!");
             pthread_cond_wait(&pokracuj, &mutex);
             continue;
         } else {
@@ -163,7 +162,7 @@ void *mRead(int sockfd){
         }
 
         if(!strcmp(buffer, "terminujem ta")){
-            //printf("reeeeeeeeeeeeeeeee\n");
+
             gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
             gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
             break;
@@ -389,11 +388,11 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
     textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
 
-    printf("sent!\n");
+    //printf("sent!\n");
     mark = gtk_text_buffer_get_insert (chatTextBuffer);
     gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
     if (strlen(textInsert) > 0) {
-        printf("Nice.");
+        //printf("Nice.");
         gtk_text_buffer_insert (chatTextBuffer, &iter, ("\n :"), 1);
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
 
@@ -405,7 +404,7 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
         pthread_cond_signal(&pokracuj);
 
     } else {
-        printf("Not nice.");
+        //rintf("Not nice.");
     }
     gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
     gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");

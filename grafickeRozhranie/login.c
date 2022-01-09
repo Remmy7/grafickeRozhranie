@@ -10,7 +10,7 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
 
-    if(strlen(username) < 3 || strlen(password) < 3 && strlen(username) > 10 || strlen(password) > 10) {
+    if((strlen(username) < 3 || strlen(password) < 3) && (strlen(username) > 10 || strlen(password) > 10)) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Meno a heslo musia mať minimálne 3 znaky a maximálne 10 znakov!");
         return;
     }
@@ -68,7 +68,7 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
    // } else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
         //printf("logged in via random new user");
         //gtk_widget_hide(windowLogin);
-       // chatScreen(); // TODO DELETE, TESTING
+       // chatScreen();
      //           printf("logged in");
    // } *else {
        // gtk_label_set_text(GTK_LABEL(errorMessage), "Nesprávne zadané údaje!");
