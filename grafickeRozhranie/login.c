@@ -41,7 +41,7 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
         strcat(temp, " ");
         strcat(temp, password);
 
-        strcpy(msg1.text , temp);
+        strcpy(msg1.text , "log matej hubocan");
 
         gtk_main_quit();
         chatScreen();
