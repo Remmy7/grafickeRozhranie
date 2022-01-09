@@ -359,6 +359,11 @@ void* start(void * d){
     close(sockfd);
 };
 
+void on_buttonQuit_clicked(GtkButton *button, gpointer user_data) {
+    strcpy(msg1.text, "quit\n");
+    pthread_cond_signal(&pokracuj);
+}
+
 void on_gtkViewText_button_press_event(GtkButton *button, gpointer user_data) {
 
 }
@@ -411,15 +416,18 @@ void chatScreen() {
     gtkSendText = GTK_WIDGET(gtk_builder_get_object(builder, "gtkSendText"));
     buttonSendMessage = GTK_WIDGET(gtk_builder_get_object(builder, "buttonSendMessage"));
     buttonHistory = GTK_WIDGET(gtk_builder_get_object(builder, "buttonHistory"));
+    buttonQuit = GTK_WIDGET(gtk_builder_get_object(builder, "buttonQuit"));
 
 
     gtk_text_view_set_editable(GTK_TEXT_VIEW(gtkViewText), FALSE);
     gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(gtkViewText), FALSE);
     g_signal_connect(windowChat, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-    g_signal_connect(buttonSendMessage, "clicked", G_CALLBACK(on_buttonSendMessage_clicked), windowChat);
     g_signal_connect(gtkSendText, "activate", G_CALLBACK(on_buttonSendMessage_clicked), NULL);
-    g_signal_connect(buttonHistory, "clicked", G_CALLBACK(on_buttonHistory_clicked), windowChat);
     g_signal_connect(gtkViewText, "button-press-event", G_CALLBACK(on_gtkViewText_button_press_event), windowChat);
+    g_signal_connect(buttonSendMessage, "clicked", G_CALLBACK(on_buttonSendMessage_clicked), windowChat);
+    g_signal_connect(buttonHistory, "clicked", G_CALLBACK(on_buttonHistory_clicked), windowChat);
+    g_signal_connect(buttonQuit, "clicked", G_CALLBACK(on_buttonQuit_clicked), windowChat);
+
     gtk_widget_show_all(windowChat);
 
     gtk_main();

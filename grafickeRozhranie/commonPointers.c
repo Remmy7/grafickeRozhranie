@@ -17,6 +17,7 @@ GtkWidget *passwordEntry;
 GtkWidget *buttonLogin;
 GtkWidget *buttonRegister;
 GtkWidget *buttonHistory;
+GtkWidget *buttonQuit;
 
 GtkTextBuffer *chatTextBuffer;
 
