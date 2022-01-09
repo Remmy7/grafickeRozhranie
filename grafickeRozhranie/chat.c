@@ -152,10 +152,11 @@ void *mRead(int sockfd){
             gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
         } else {
             printf("Not nice.");
+            continue;
         }
 
         gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
-        gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");
+        //gtk_entry_set_text(GTK_ENTRY(gtkSendText), ""); maze obsah rozpisanej spravy
 
         if (n < 0) {
             perror("Error reading from socket");
