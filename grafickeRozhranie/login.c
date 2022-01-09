@@ -80,9 +80,11 @@ void loginScreen(){
     g_signal_connect(passwordEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
 
     gtk_widget_show(windowLogin);
+
     pthread_create(&communication, NULL, start, NULL);
     pthread_cond_init(&pokracuj, NULL);
     pthread_mutex_init(&mutex, NULL);
+
     gtk_main();
 
     //return EXIT_SUCCESS;
