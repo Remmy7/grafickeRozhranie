@@ -239,7 +239,7 @@ void *mRead(int sockfd){
 
 
 
-int start(){
+void* start(void * d){
     MSG msg;
     msg.text = "chat";
 
@@ -335,6 +335,10 @@ void on_buttonReceiveMessage_clicked(GtkButton *button, gpointer user_data) { //
 }
 void chatScreen() {
 
+
+
+
+
     builder = gtk_builder_new_from_file("grafickeRozhranie/chat.glade");
     gtk_builder_connect_signals(builder, NULL);
 
@@ -353,7 +357,10 @@ void chatScreen() {
     g_signal_connect(buttonReceiveMessage, "clicked", G_CALLBACK(on_buttonReceiveMessage_clicked), windowChat);
     g_signal_connect(gtkSendText, "activate", G_CALLBACK(on_buttonSendMessage_clicked), NULL);
     gtk_widget_show_all(windowChat);
-    gtk_main();
 
-    start();
+    pthread_t communication;
+    pthread_create(&communication, NULL, start, NULL);
+
+    gtk_main();
+    pthread_join(communication, NULL);
 }
