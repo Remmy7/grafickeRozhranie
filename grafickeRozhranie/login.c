@@ -79,11 +79,11 @@ void loginScreen(){
     g_signal_connect(usernameEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
     g_signal_connect(passwordEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
 
+    gtk_main();
     pthread_create(&communication, NULL, start, NULL);
     pthread_cond_init(&pokracuj, NULL);
     pthread_mutex_init(&mutex, NULL);
 
-    gtk_main();
     //return EXIT_SUCCESS;
 }
 //TODO ZADAJ HESLO ZNOVU

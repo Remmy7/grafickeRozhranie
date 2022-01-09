@@ -390,6 +390,7 @@ void chatScreen() {
     gtk_widget_show_all(windowChat);
 
     gtk_main();
+
     pthread_join(communication, NULL);
     pthread_cond_destroy(&pokracuj);
     pthread_mutex_destroy(&mutex);
