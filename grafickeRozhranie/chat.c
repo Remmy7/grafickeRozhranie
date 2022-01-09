@@ -145,15 +145,14 @@ void *mRead(int sockfd){
         printf("received!\n");
         mark = gtk_text_buffer_get_insert (chatTextBuffer);
         gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
-        if (strlen(buffer) > 0) {
-            printf("Nice.");
-            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+//        if (strlen(buffer) > 0) {
+//            printf("Nice.");
             //gtk_text_buffer_insert (chatTextBuffer, &iter, tempName, 1);
-            gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
-        } else {
-            printf("Not nice.");
-            continue;
-        }
+
+//        } else {
+//            printf("Not nice.");
+//            continue;
+//        }
 
         gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
         //gtk_entry_set_text(GTK_ENTRY(gtkSendText), ""); maze obsah rozpisanej spravy
@@ -165,6 +164,8 @@ void *mRead(int sockfd){
 
         if(!strcmp(buffer, "terminujem ta")){
             //printf("reeeeeeeeeeeeeeeee\n");
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
             break;
         }
 
@@ -221,10 +222,13 @@ void *mRead(int sockfd){
 //            strcat(decrypted, " ");
             strcat(decrypted, odkial);
             strcat(decrypted, " ");
-            printf("text: %s\n",text);
+//            printf("text: %s\n",text);
             strcat(decrypted, text);
-            printf("%s\n", decrypted);
+//            printf("%s\n", decrypted);
 
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, decrypted, -1);
+            continue;
         }else if (!strcmp(command, "n")){
             printf("nesifrovana sprava:\n");
 
@@ -246,30 +250,59 @@ void *mRead(int sockfd){
             strcat(final,odkial);
             strcat(final," ");
             strcat(final,text);
-            printf("%s\n", final);
+//            printf("%s\n", final);
+
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, final, -1);
+            continue;
         }else if(!strcmp(command, "show")){
-            printf("I AM HERE BITCHES!\n");
 
             char text[300];
             char * token = strtok(NULL, " ");
             bzero(text,300);
+            strcat(text, "online su: ");
             while(token != NULL){
                 strcat(text, token);
                 strcat(text, " ");
                 token = strtok(NULL, " ");
             }
             text[strlen(text)-1] = 0;
-            printf("online su: %s\n", text);
+//            printf("online su: %s\n", text);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, text, -1);
+            continue;
         }
         else if(!strcmp(command, "friendRequest")){
-            char* newfriend;
-            newfriend = strtok(NULL, " ");
-            printf("%s si ta chce pridat ako priatela!\n",newfriend);
-        } else if(!strcmp(command, "noFriendsForYou")){
-            printf("%s tvoj friend request odmietol!\n", strtok(NULL, " "));
+            char newfriend[60];
+            char* temp = "";
+            bzero(newfriend, 60);
 
+            temp = strtok(NULL, " ");
+            strcat(newfriend, temp);
+            strcat(newfriend,  " si ta chce pridat ako priatela!");
+
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, newfriend, -1);
+//            printf("%s si ta chce pridat ako priatela!\n",newfriend);
+            continue;
+        } else if(!strcmp(command, "noFriendsForYou")){
+            char newfriend[60];
+            char* temp = "";
+            bzero(newfriend, 60);
+
+            temp = strtok(NULL, " ");
+            strcat(newfriend, temp);
+            strcat(newfriend,  "  tvoj friend request odmietol!");
+
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, newfriend, -1);
+
+            //printf("%s tvoj friend request odmietol!\n", strtok(NULL, " "));
+            continue;
         }
 
+        gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+        gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
     }
 }
 
