@@ -13,6 +13,7 @@ typedef struct msg {
 }MSG;
 
 MSG msg1;
+MSG msg2;
 pthread_t communication;
 pthread_cond_t pokracuj;
 pthread_mutex_t mutex;
@@ -137,6 +138,7 @@ void *mRead(int sockfd){
     while(1){
         bzero(buffer,256);
         n = read(sockfd, buffer, 255);
+        strcpy(msg2.text, buffer);
 
         chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
 

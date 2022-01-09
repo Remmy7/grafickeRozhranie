@@ -9,14 +9,29 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     const gchar *username, *password;
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
-    const gchar *temp1 = "tibor";
-    const gchar *temp2 = "michalov";
-    //\printf("\n\n\nusernameA=%s\npassword=%s\n", username, password);
-    if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Užívateľ už existuje!");
-    } else {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Úspešne vytvorený účet!");
+
+    if(strlen(username) == 0 || strlen(password) == 0) {
+        gtk_label_set_text(GTK_LABEL(errorMessage), "Neuplne udaje!");
+        return;
     }
+    char temp[60];
+    bzero(temp, 60);
+    strcat(temp, "reg ");
+    strcat(temp, username);
+    strcat(temp, " ");
+    strcat(temp, password);
+    strcpy(msg1.text, temp);
+    pthread_cond_signal(&pokracuj);
+
+    if(!strcmp(msg2.text, "ok")) {
+        gtk_label_set_text(GTK_LABEL(errorMessage), "Úspešne vytvorený účet!");
+        bzero(msg2.text, strlen(msg2.text));
+    } else {
+        gtk_label_set_text(GTK_LABEL(errorMessage), "Užívateľ už existuje!");
+    }
+
+    gtk_main_quit();
+    chatScreen();
 }
 
 void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
