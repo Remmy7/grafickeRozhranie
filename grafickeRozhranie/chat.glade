@@ -403,6 +403,117 @@
           <placeholder/>
         </child>
         <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
           <object class="GtkButton" id="buttonSendMessage">
             <property name="label" translatable="yes">Poslať</property>
             <property name="visible">True</property>
@@ -433,27 +544,13 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_buttonHistory_clicked" swapped="no"/>
           </object>
           <packing>
             <property name="left-attach">9</property>
             <property name="right-attach">11</property>
             <property name="top-attach">10</property>
             <property name="bottom-attach">11</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="buttonReceiveMessage">
-            <property name="label" translatable="yes">Prijať</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <signal name="clicked" handler="on_buttonReceiveMessage_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="left-attach">9</property>
-            <property name="right-attach">11</property>
-            <property name="top-attach">8</property>
-            <property name="bottom-attach">9</property>
           </packing>
         </child>
         <child>
@@ -507,6 +604,7 @@
                 <property name="editable">False</property>
                 <property name="cursor-visible">False</property>
                 <property name="accepts-tab">False</property>
+                <signal name="button-press-event" handler="on_gtkViewText_button_press_event" swapped="no"/>
               </object>
             </child>
           </object>
@@ -531,6 +629,9 @@
             <property name="top-attach">9</property>
             <property name="bottom-attach">11</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
         </child>
       </object>
     </child>
