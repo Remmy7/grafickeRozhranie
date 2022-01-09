@@ -6,10 +6,13 @@ GtkTextMark *mark, *mark2;
 const gchar* tempName = "jano";
 const gchar* tempName2 = "tibor";
 
+
 typedef struct msg {
-    char *text;
+    char text[256];
     int socketfd;
 }MSG;
+
+MSG msg1;
 
 void *mWrite(void *d){
     MSG *msg = d;
@@ -240,9 +243,6 @@ void *mRead(int sockfd){
 
 
 void* start(void * d){
-    MSG msg;
-    msg.text = "chat";
-
 
     int sockfd, n;
     struct sockaddr_in serv_addr;
@@ -270,7 +270,7 @@ void* start(void * d){
         perror("Error creating socket");
         return 3;
     }
-    msg.socketfd = sockfd;
+    msg1.socketfd = sockfd;
     if(connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
         portt++;
         serv_addr.sin_port = htons(portt);
@@ -284,7 +284,7 @@ void* start(void * d){
     pthread_t tWrite;
 
     pthread_create(&tRead, NULL, &mRead, sockfd);
-    pthread_create(&tWrite, NULL, &mWrite, &msg);
+    pthread_create(&tWrite, NULL, &mWrite, &msg1);
 
     pthread_join(tRead, NULL);
     pthread_join(tWrite, NULL);
@@ -305,6 +305,9 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
         printf("Nice.");
         gtk_text_buffer_insert (chatTextBuffer, &iter, ("\n :"), 1);
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
+        bzero(msg1.text, 256);
+        strcpy(msg1.text, textInsert);
+
     } else {
         printf("Not nice.");
     }
@@ -334,10 +337,6 @@ void on_buttonReceiveMessage_clicked(GtkButton *button, gpointer user_data) { //
     gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");
 }
 void chatScreen() {
-
-
-
-
 
     builder = gtk_builder_new_from_file("grafickeRozhranie/chat.glade");
     gtk_builder_connect_signals(builder, NULL);
