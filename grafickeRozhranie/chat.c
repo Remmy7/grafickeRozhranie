@@ -430,7 +430,7 @@ void chatScreen() {
     g_signal_connect(buttonHistory, "clicked", G_CALLBACK(on_buttonHistory_clicked), windowChat);
     g_signal_connect(buttonQuit, "clicked", G_CALLBACK(on_buttonQuit_clicked), windowChat);
 
-    gtk_widget_show_all(windowChat);
+    //gtk_widget_show_all(windowChat);
 
     gtk_main();
 
