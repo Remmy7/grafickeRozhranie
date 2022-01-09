@@ -32,18 +32,20 @@ void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
         //printf("matej");
         //printf("hubocan");
 
-        char temp[60];
-        bzero(temp, 60);
+    char temp[60];
+    bzero(temp, 60);
 
-        strcat(temp, "log ");
-        strcat(temp, " ");
-        strcat(temp, username);
-        strcat(temp, " ");
-        strcat(temp, password);
+    strcat(temp, "log");
+    strcat(temp, " ");
+    strcat(temp, username);
+    strcat(temp, " ");
+    strcat(temp, password);
 
-        printf("Temp: %s\n", temp);
-        strcpy(msg1.text , temp);
-        printf("Temp: %s\n",msg1.text);
+//        printf("Temp: %s\n", temp);
+    strcpy(msg1.text , temp);
+    pthread_cond_signal(&pokracuj);
+//        printf("Temp: %s\n",msg1.text);
+
 
     gtk_main_quit();
     chatScreen();
