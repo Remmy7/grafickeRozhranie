@@ -28,9 +28,8 @@ void *mWrite(void *d){
 
 
         if(strlen(msg1.text) == 0) {
-            printf("SOM TU!");
+            //printf("SOM TU!");
             pthread_cond_wait(&pokracuj, &mutex);
-
             continue;
         } else {
             strcpy(buffer, msg->text);
@@ -125,12 +124,35 @@ void *mWrite(void *d){
 }
 
 void *mRead(int sockfd){
+
+    //const gchar *textInsert;
+    //textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
+
+
     int n;
     char buffer[256];
 
     while(1){
         bzero(buffer,256);
         n = read(sockfd, buffer, 255);
+
+        chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
+
+        printf("received!\n");
+        mark = gtk_text_buffer_get_insert (chatTextBuffer);
+        gtk_text_buffer_get_iter_at_mark (chatTextBuffer, &iter, mark);
+        if (strlen(buffer) > 0) {
+            printf("Nice.");
+            gtk_text_buffer_insert (chatTextBuffer, &iter, "\n: ", 1);
+            //gtk_text_buffer_insert (chatTextBuffer, &iter, tempName, 1);
+            gtk_text_buffer_insert (chatTextBuffer, &iter, buffer, -1);
+        } else {
+            printf("Not nice.");
+        }
+
+        gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(gtkViewText), mark, 0.0, FALSE, 1, 1);
+        gtk_entry_set_text(GTK_ENTRY(gtkSendText), "");
+
         if (n < 0) {
             perror("Error reading from socket");
             return 6;
