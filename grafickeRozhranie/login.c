@@ -10,8 +10,8 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
 
-    if(strlen(username) == 0 || strlen(password) == 0) {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Neuplne udaje!");
+    if(strlen(username) < 3 || strlen(password) < 3 && strlen(username) > 10 || strlen(password) > 10) {
+        gtk_label_set_text(GTK_LABEL(errorMessage), "Meno a heslo musia mať minimálne 3 znaky a maximálne 10 znakov!");
         return;
     }
     char temp[60];

@@ -372,8 +372,12 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
         printf("Nice.");
         gtk_text_buffer_insert (chatTextBuffer, &iter, ("\n :"), 1);
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
-        bzero(msg1.text, 256);
-        strcpy(msg1.text, textInsert);
+
+        char temp[256];
+        bzero(temp, 256);
+        strcpy(temp, textInsert);
+        strcat(temp, "\n");
+        strcpy(msg1.text, temp);
         pthread_cond_signal(&pokracuj);
 
     } else {

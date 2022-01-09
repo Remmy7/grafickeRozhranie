@@ -2,27 +2,24 @@
 <project version="4">
   <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="PS3 (1a612774-ff0b-4634-9fe2-b76ec8ff7f6c)">
+      <paths name="Unnamed (204e0789-ccbb-4397-bc57-f33691eb092c)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="Remote Host (acda210a-c7b5-484e-b504-bbbcfe3ab71e)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/tmp/tmp.cmbV8LZX3H" local="$PROJECT_DIR$" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="frios2 (cbf797ee-37b4-4cb6-8bdf-7120f12cedf1)">
+      <paths name="gtk+frios (a6dd6bf6-ed5b-49f2-bb58-c8b9b8879bdb)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="gtk+friosv2 (72914723-dec5-4adb-8526-b497fa3d21f3)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.pmI2t1CfjG" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>
