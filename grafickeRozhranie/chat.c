@@ -361,10 +361,8 @@ void on_buttonQuit_clicked() {
     pthread_cond_signal(&pokracuj);
     gtk_widget_hide(windowChat);
     gtk_main_quit();
-
-
 }
-
+// zabezpečuje aby užívateľ nemohol klikať na zobrazovacie pole.
 void on_gtkViewText_button_press_event() {
 
 }
