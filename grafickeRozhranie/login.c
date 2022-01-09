@@ -2,7 +2,10 @@
 #include "chat.c"
 #include <string.h>
 
+
+
 void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
+
     const gchar *username, *password;
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
@@ -17,29 +20,40 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
 }
 
 void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
+
     const gchar *username, *password;
     username = gtk_entry_get_text(GTK_ENTRY(usernameEntry));
     password = gtk_entry_get_text(GTK_ENTRY(passwordEntry));
-    const gchar *temp1 = "matej";
-    const gchar *temp2 = "hubocan";
-    if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
+    //const gchar *temp1 = "matej";
+    //const gchar *temp2 = "hubocan";
+    //if (strcmp(username, temp1) == 0 && strcmp(password, temp2) == 0) {
         gtk_label_set_text(GTK_LABEL(errorMessage), "Správne zadané údaje!");
         gtk_widget_hide(windowLogin);
         printf("matej");
         printf("hubocan");
-//        puts("y");
-//        puts("matej");
-//        puts("hubocan");
+
+        char temp[60];
+        bzero(temp, 60);
+
+        strcat(temp, "log ");
+        strcat(temp, " ");
+        strcat(temp, username);
+        strcat(temp, " ");
+        strcat(temp, password);
+
+        strcpy(msg1.text , temp);
+
         gtk_main_quit();
         chatScreen();
-    }/* else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
-        printf("logged in via random new user");
-        gtk_widget_hide(windowLogin);
-        chatScreen(); // TODO DELETE, TESTING
-                printf("logged in");
-    } */else {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Nesprávne zadané údaje!");
-    }
+
+   // } else if (strcmp(username, temp3) == 0 && strcmp(password, temp4) == 0) {
+        //printf("logged in via random new user");
+        //gtk_widget_hide(windowLogin);
+       // chatScreen(); // TODO DELETE, TESTING
+     //           printf("logged in");
+   // } *else {
+       // gtk_label_set_text(GTK_LABEL(errorMessage), "Nesprávne zadané údaje!");
+    //}
     //printf("username=%s\npassword=%s\n",username,password);
 }
 void loginScreen(){
@@ -65,7 +79,10 @@ void loginScreen(){
     g_signal_connect(usernameEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
     g_signal_connect(passwordEntry, "activate", G_CALLBACK(on_buttonLogin_clicked), NULL);
 
-    gtk_widget_show(windowLogin);
+    pthread_create(&communication, NULL, start, NULL);
+    pthread_cond_init(&pokracuj, NULL);
+    pthread_mutex_init(&mutex, NULL);
+
     gtk_main();
     //return EXIT_SUCCESS;
 }

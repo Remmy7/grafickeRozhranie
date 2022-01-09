@@ -13,8 +13,10 @@ typedef struct msg {
 }MSG;
 
 MSG msg1;
+pthread_t communication;
 pthread_cond_t pokracuj;
 pthread_mutex_t mutex;
+
 
 void *mWrite(void *d){
     MSG *msg = d;
@@ -159,7 +161,7 @@ void *mRead(int sockfd){
         }
 
         if(!strcmp(buffer, "terminujem ta")){
-            printf("reeeeeeeeeeeeeeeee\n");
+            //printf("reeeeeeeeeeeeeeeee\n");
             break;
         }
 
@@ -386,11 +388,6 @@ void chatScreen() {
     g_signal_connect(buttonReceiveMessage, "clicked", G_CALLBACK(on_buttonReceiveMessage_clicked), windowChat);
     g_signal_connect(gtkSendText, "activate", G_CALLBACK(on_buttonSendMessage_clicked), NULL);
     gtk_widget_show_all(windowChat);
-
-    pthread_t communication;
-    pthread_create(&communication, NULL, start, NULL);
-    pthread_cond_init(&pokracuj, NULL);
-    pthread_mutex_init(&mutex, NULL);
 
     gtk_main();
     pthread_join(communication, NULL);
