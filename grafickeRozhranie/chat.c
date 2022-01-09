@@ -13,6 +13,8 @@ typedef struct msg {
 }MSG;
 
 MSG msg1;
+pthread_cond_t pokracuj;
+pthread_mutex_t mutex;
 
 void *mWrite(void *d){
     MSG *msg = d;
@@ -23,7 +25,12 @@ void *mWrite(void *d){
 
         bzero(buffer,256);
         //fgets(buffer, 255, stdin);
+
+
         if(strlen(msg1.text) == 0) {
+            printf("SOM TU!");
+            pthread_cond_wait(&pokracuj, &mutex);
+
             continue;
         } else {
             strcpy(buffer, msg->text);
@@ -307,6 +314,7 @@ void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
         gtk_text_buffer_insert (chatTextBuffer, &iter, textInsert, -1);
         bzero(msg1.text, 256);
         strcpy(msg1.text, textInsert);
+        pthread_cond_signal(&pokracuj);
 
     } else {
         printf("Not nice.");
@@ -359,7 +367,11 @@ void chatScreen() {
 
     pthread_t communication;
     pthread_create(&communication, NULL, start, NULL);
+    pthread_cond_init(&pokracuj, NULL);
+    pthread_mutex_init(&mutex, NULL);
 
     gtk_main();
     pthread_join(communication, NULL);
+    pthread_cond_destroy(&pokracuj);
+    pthread_mutex_destroy(&mutex);
 }
