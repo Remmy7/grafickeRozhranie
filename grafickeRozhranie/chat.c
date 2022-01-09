@@ -362,6 +362,8 @@ void* start(void * d){
 void on_buttonQuit_clicked(GtkButton *button, gpointer user_data) {
     strcpy(msg1.text, "quit\n");
     pthread_cond_signal(&pokracuj);
+    gtk_widget_hide(windowChat);
+    gtk_main_quit();
 }
 
 void on_gtkViewText_button_press_event(GtkButton *button, gpointer user_data) {
