@@ -622,6 +622,8 @@
             <property name="has-focus">True</property>
             <property name="can-default">True</property>
             <property name="activates-default">True</property>
+            <property name="show-emoji-icon">True</property>
+            <property name="enable-emoji-completion">True</property>
           </object>
           <packing>
             <property name="left-attach">2</property>
