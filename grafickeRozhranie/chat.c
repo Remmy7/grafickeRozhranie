@@ -23,12 +23,12 @@ void *mWrite(void *d){
 
         bzero(buffer,256);
         //fgets(buffer, 255, stdin);
-        if(!strcmp(msg->text, "")) {
+        if(strlen(msg1.text) == 0) {
             continue;
         } else {
             strcpy(buffer, msg->text);
             printf("text: %s", msg->text);
-            msg->text = "";
+            bzero(msg1.text, 256);
         }
         printf("\n");
         printf("vypis obsahu buffera z write thready: %s",buffer);
