@@ -23,15 +23,15 @@ void on_buttonRegister_clicked(GtkButton *button, gpointer user_data) {
     strcpy(msg1.text, temp);
     pthread_cond_signal(&pokracuj);
 
-    if(!strcmp(msg2.text, "ok")) {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Úspešne vytvorený účet!");
+    if(!strcmp(msg2.text, "Boli ste uspesne registrovany.")) {
+        gtk_label_set_text(GTK_LABEL(errorMessage), msg2.text);
         bzero(msg2.text, strlen(msg2.text));
     } else {
-        gtk_label_set_text(GTK_LABEL(errorMessage), "Užívateľ už existuje!");
+        gtk_label_set_text(GTK_LABEL(errorMessage), msg2.text);
     }
 
-    gtk_main_quit();
-    chatScreen();
+    //gtk_main_quit();
+    //chatScreen();
 }
 
 void on_buttonLogin_clicked(GtkButton *button, gpointer user_data) {
