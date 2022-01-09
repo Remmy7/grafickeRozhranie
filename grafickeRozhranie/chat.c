@@ -2,9 +2,8 @@
 #include "commonPointers.c"
 #include <string.h>
 GtkTextIter iter;
-GtkTextMark *mark, *mark2;
-const gchar* tempName = "jano";
-const gchar* tempName2 = "tibor";
+GtkTextMark *mark;
+
 
 
 typedef struct msg {
@@ -73,7 +72,7 @@ void *mWrite(void *d){
                 text[i] += 1;
             }
             //shift podla pozicie
-            int shift = 0;
+            int shift;
             for(int i=0; i < strlen(text)-1; i++) {
                 shift = i % 4;
                 text[i] += shift;
@@ -105,13 +104,13 @@ void *mWrite(void *d){
             printf("original: %s", buffer);
             printf("    copy: %s\n", crypted);
 
-            n = write(msg->socketfd, crypted, strlen(crypted)+1);
+            n = (int)write(msg->socketfd, crypted, strlen(crypted)+1);
             if (n < 0) {
                 perror("Error writing to socket");
                 exit(5);
             }
         }else{
-            n = write(msg->socketfd, buffer, strlen(buffer)+1);
+            n = (int)write(msg->socketfd, buffer, strlen(buffer)+1);
             if (n < 0) {
                 perror("Error writing to socket");
                 exit(5);
@@ -205,7 +204,7 @@ void *mRead(void* d){
                     text[i+1] = c;
                 }
             }
-            int shift = 0;
+            int shift;
             for(int i=0; i < strlen(text)-1; i++) {
                 shift = i % 4;
                 text[i] -= shift;
@@ -357,7 +356,7 @@ void* start(void * d){
     close(sockfd);
 };
 
-void on_buttonQuit_clicked(GtkButton *button, gpointer user_data) {
+void on_buttonQuit_clicked() {
     strcpy(msg1.text, "quit\n");
     pthread_cond_signal(&pokracuj);
     gtk_main_quit();
@@ -365,11 +364,11 @@ void on_buttonQuit_clicked(GtkButton *button, gpointer user_data) {
 
 }
 
-void on_gtkViewText_button_press_event(GtkButton *button, gpointer user_data) {
+void on_gtkViewText_button_press_event() {
 
 }
 
-void on_buttonHistory_clicked (GtkButton *button, gpointer user_data) {
+void on_buttonHistory_clicked () {
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
 
     strcpy(msg1.text, "history\n");
@@ -382,7 +381,7 @@ void on_buttonHistory_clicked (GtkButton *button, gpointer user_data) {
 
 }
 
-void on_buttonSendMessage_clicked(GtkButton *button, gpointer user_data) {
+void on_buttonSendMessage_clicked() {
     const gchar *textInsert;
     chatTextBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(gtkViewText));
     textInsert = gtk_entry_get_text(GTK_ENTRY(gtkSendText));
