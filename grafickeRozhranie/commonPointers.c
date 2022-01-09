@@ -8,14 +8,15 @@ GtkWidget *windowChat;
 GtkWidget *gtkViewText;
 GtkWidget *gtkSendText;
 GtkWidget *buttonSendMessage;
-GtkWidget *buttonReceiveMessage; //TODO DELETE LATER
 
 GtkWidget *windowLogin;
 GtkWidget *errorMessage;
 GtkWidget *usernameEntry;
 GtkWidget *passwordEntry;
+
 GtkWidget *buttonLogin;
 GtkWidget *buttonRegister;
+GtkWidget *buttonHistory;
 
 GtkTextBuffer *chatTextBuffer;
 
